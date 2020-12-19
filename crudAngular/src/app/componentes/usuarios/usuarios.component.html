@@ -1,0 +1,74 @@
+<div class="container mt-4">
+  <h1 class="mb-2 titulo">Api angular com php - Crud Usuários</h1>
+  <br>
+  <button class="btn btn-success mb-3" data-toggle="modal"
+  data-target="#modal">Adicionar novo usuário</button>
+
+  <table class="table table-striped">
+    <tr>
+      <th>Nome</th>
+      <th>E-mail</th>
+      <th>Idade</th>
+      <th>Cidade</th>
+      <th>Ações</th>
+    </tr>
+    <tr *ngFor="let dado of lista">
+      <td>{{dado.nome}}</td>
+      <td>{{dado.email}}</td>
+      <td>{{dado.idade}}</td>
+      <td>{{dado.cidade}}</td>
+      <td>
+        <a data-toggle="modal"
+        data-target="#modal"><i class="fas fa-edit text-info mr-2" title="Editar"
+        (click)="dadosEditar(dado.nome, dado.email, dado.idade, dado.cidade, dado.id)"></i></a>
+        <i class="fas fa-trash-alt text-danger" (click)="excluir(dado.id)"></i>
+      </td>
+    </tr>
+  </table>
+
+  <div  id="modal" class="modal fade" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">{{title}}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form method="post">
+          <div class="modal-body">
+            <div class="form-group">
+              <label>Nome</label>
+              <input type="text" class="form-control" value="{{nome}}" (input)="this.nome = $event.target.value" required>
+            </div>
+            <div class="row form-group">
+              <div class="col">
+                <label>Idade</label>
+                <input type="number" class="form-control" value="{{idade}}" (input)="this.idade = $event.target.value" required>
+              </div>
+              <div class="col">
+                <label>Cidade</label>
+                <input type="text" class="form-control" value="{{cidade}}" (input)="this.cidade = $event.target.value" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>E-mail</label>
+              <input type="email" class="form-control"  value="{{email}}" (input)="this.email = $event.target.value" required>
+            </div>
+            <div class="form-group">
+              <label  *ngIf="id === '' " >Senha</label>
+              <input  *ngIf="id === '' "  type="current-password" class="form-control"  (input)="this.senha = $event.target.value" required>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button *ngIf="id === '' " type="button" class="btn btn-primary" (click)="cadastrar()">Salvar</button>
+
+            <button *ngIf="id != 0 " type="button" class="btn btn-primary" (click)="editar()">Editar</button>
+
+             <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+          </div>
+      </form>
+      </div>
+    </div>
+  </div>
+</div>
